@@ -1,0 +1,12 @@
+{
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "url": "db/orders.db"
+        }
+      }
+    }
+  }
+}

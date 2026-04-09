@@ -1,0 +1,5 @@
+code,name,descr
+New,New,Order created but not yet processed
+InProgress,In Progress,Order is being processed
+Done,Done,Order completed and invoiced
+Cancelled,Cancelled,Order was cancelled

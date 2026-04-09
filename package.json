@@ -1,0 +1,42 @@
+{
+  "name": "cap-mini",
+  "version": "1.0.0",
+  "description": "CAP example APP",
+  "keywords": [
+    "ui5",
+    "openui5",
+    "sapui5"
+  ],
+  "main": "webapp/index.html",
+  "dependencies": {
+    "@sap/cds": "^9"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^2",
+    "@ui5/cli": "^4.0.33",
+    "@sap/ux-ui5-tooling": "1"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch-mini-cap": "cds watch --open bits.cap.order.minicap/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "deploy-config": "npx -p @sap/ux-ui5-tooling fiori add deploy-config cf",
+    "watch-cap-mini": "cds watch --open bits.cap.order.capmini/index.html?sap-ui-xx-viewCache=false --livereload false"
+  },
+  "private": true,
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "url": "db/orders.db"
+        }
+      }
+    }
+  },
+  "workspaces": [
+    "app/*"
+  ],
+  "sapux": [
+    "app/cap-mini"
+  ]
+}

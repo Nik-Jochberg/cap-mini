@@ -1,0 +1,9 @@
+code,locale,name,descr
+New,de,Neu,Auftrag erstellt, aber noch nicht bearbeitet
+New,fr,Nouveau,Commande créée mais pas encore traitée
+InProgress,de,In Bearbeitung,Auftrag wird bearbeitet
+InProgress,fr,En cours,Commande en cours de traitement
+Done,de,Abgeschlossen,Auftrag abgeschlossen und fakturiert
+Done,fr,Terminé,Commande terminée et facturée
+Cancelled,de,Storniert,Auftrag wurde storniert
+Cancelled,fr,Annulé,La commande a été annulée

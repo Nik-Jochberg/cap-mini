@@ -1,0 +1,97 @@
+### ═══════════════════════════════════════════════════════════
+###  orders-service.http  –  REST tests (VS Code REST Client)
+###  Base URL: http://localhost:4004/orders-api
+### ═══════════════════════════════════════════════════════════
+
+@base = http://localhost:4004/orders-api
+
+
+### ── 1. GET all Orders (shallow) ─────────────────────────────
+GET {{base}}/Orders
+Accept: application/json
+
+
+### ── 2. GET all Orders WITH items (deep / $expand) ───────────
+GET {{base}}/Orders?$expand=items
+Accept: application/json
+
+
+### ── 3. GET single Order with items ──────────────────────────
+GET {{base}}/Orders(11111111-0000-0000-0000-000000000001)?$expand=items
+Accept: application/json
+
+### ── 4. CREATE Order – DEEP INSERT (order + items in one call)
+POST {{base}}/Orders
+Content-Type: application/json 
+
+{ 
+  "orderNumber": "CAP example 444",
+  "customer": "Falsche Ref.", 
+  "status_code": "444",
+  "items": [ 
+    { "product": "Deep Insert",   "quantity": 8, "unitPrice": 105.95  }, 
+    { "product": "Project-Mngm.", "quantity": 4, "unitPrice": 204.05 } 
+  ] 
+} 
+
+### ── 5. CREATE Order – INLINE INSERT (header only, add items later)
+POST {{base}}/Orders
+Content-Type: application/json
+
+{
+  "orderNumber": "ORD-0043",
+  "customer": "Umbrella Corp",
+  "status": "New"
+}
+
+
+### ── 6. ADD item to existing order via navigation property ────
+#   Replace {orderId} with a real UUID from step 5
+@orderId = 0aaa56d9-c74a-4ece-9991-e562b1a94ffe
+
+POST {{base}}/Orders({{orderId}})/items
+Content-Type: application/json
+
+{
+  "product": "Spare Part Z",
+  "quantity": 3,
+  "unitPrice": 19.95
+}
+
+
+### ── 7. UPDATE Order header only (PATCH) ─────────────────────
+PATCH {{base}}/Orders({{orderId}})
+Content-Type: application/json
+
+{
+  "status": "InProgress"
+}
+
+
+### ── 8. UPDATE an OrderItem ──────────────────────────────────
+@itemId = fda1cee7-49b3-4c43-8ef2-d5c576f41731
+
+PATCH {{base}}/OrderItems({{itemId}})
+Content-Type: application/json
+
+{
+  "quantity": 6
+}
+
+
+### ── 9. Custom ACTION – recalculate totals ───────────────────
+POST {{base}}/recalculate
+Content-Type: application/json
+
+{
+  "orderId": "1edaed91-f99a-43e3-b5c1-11a064c61305"
+}
+
+
+### ── 10. DELETE an OrderItem ─────────────────────────────────
+DELETE {{base}}/OrderItems({{itemId}})
+
+
+### ── 11. DELETE entire Order (cascades to items via Composition)
+@orderId = d80ffe1f-a3a0-4c21-8174-c231ef6c24da
+DELETE {{base}}/Orders({{orderId}})
