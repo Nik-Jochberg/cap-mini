@@ -1,1 +1,8 @@
-node_modules
+node_modules/
+gen/
+db/*.db
+db/*.db-journal
+mta_archives/
+*.mtar
+.env
+default-env.json
