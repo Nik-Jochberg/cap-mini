@@ -6,3 +6,4 @@ mta_archives/
 *.mtar
 .env
 default-env.json
+db/orders.db
