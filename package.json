@@ -31,6 +31,13 @@
           "url": "db/orders.db"
         }
       }
+    },
+    "i18n": {
+      "default_language": "en",
+      "folders": [
+        "i18n",
+        "app/i18n"
+      ]
     }
   },
   "workspaces": [

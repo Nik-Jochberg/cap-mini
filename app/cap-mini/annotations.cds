@@ -8,15 +8,15 @@ using OrdersService as S from '../../srv/orders-service';
 annotate S.Orders with @(
   UI.SelectionFields: [ orderNumber, customer, status_code ],
   UI.LineItem: [
-    { Value: orderNumber,   Label: 'Order #'   },
-    { Value: customer,      Label: 'Customer'  },
-    { Value: status_code,   Label: 'Status'    },
-    { Value: totalAmount,   Label: 'Total'     },
-    { Value: createdAt,     Label: 'Created'   }
+    { Value: orderNumber,   Label: '{i18n>orderNumber}'   },
+    { Value: customer,      Label: '{i18n>customer}'      },
+    { Value: status_code,   Label: '{i18n>status}'        },
+    { Value: totalAmount,   Label: '{i18n>totalAmount}'   },
+    { Value: createdAt,     Label: '{i18n>createdAt}'     }
   ],
   UI.HeaderInfo: {
-    TypeName:       'Order',
-    TypeNamePlural: 'Orders',
+    TypeName:       '{i18n>Order}',
+    TypeNamePlural: '{i18n>Orders}',
     Title:          { Value: orderNumber },
     Description:    { Value: customer }
   }
@@ -28,13 +28,13 @@ annotate S.Orders with @(
     {
       $Type:  'UI.ReferenceFacet',
       ID:     'GeneralInfo',
-      Label:  'General Information',
+      Label:  '{i18n>GeneralInfo}',
       Target: '@UI.FieldGroup#GeneralInfo'
     },
     {
       $Type:  'UI.ReferenceFacet',
       ID:     'Items',
-      Label:  'Order Items',
+      Label:  '{i18n>ItemsFacet}',
       Target: 'items/@UI.LineItem'
     }
   ],
@@ -45,8 +45,8 @@ annotate S.Orders with @(
       { Value: status_code  },
       { Value: totalAmount  },
       { Value: note         },
-      { Value: createdAt    },
-      { Value: modifiedAt   }
+      { Value: createdAt,   Label: '{i18n>createdAt}'   },
+      { Value: modifiedAt,  Label: '{i18n>modifiedAt}'  }
     ]
   }
 );
@@ -55,10 +55,15 @@ annotate S.Orders with @(
 annotate S.Orders with {
   orderNumber @(
     Common.FieldControl: #Mandatory,
+    Common.Label: '{i18n>orderNumber}',
     UI.HiddenFilter: false
   );
   customer @(
-    Common.FieldControl: #Mandatory
+    Common.FieldControl: #Mandatory,
+    Common.Label: '{i18n>customer}'
+  );
+  status @(
+    Common.Label: '{i18n>status_code}'
   );
   status @(
     Common.Text: status.name,
@@ -80,23 +85,23 @@ annotate S.Orders with {
 // ── OrderItems List (inside Object Page) ─────────────────────
 annotate S.OrderItems with @(
   UI.LineItem: [
-    { Value: product,   Label: 'Product'    },
-    { Value: quantity,  Label: 'Qty'        },
-    { Value: unitPrice, Label: 'Unit Price' },
-    { Value: lineTotal, Label: 'Line Total' }
+    { Value: product,   Label: '{i18n>product}'    },
+    { Value: quantity,  Label: '{i18n>quantity}'    },
+    { Value: unitPrice, Label: '{i18n>unitPrice}'   },
+    { Value: lineTotal, Label: '{i18n>lineTotal}'   }
   ],
   UI.FieldGroup#ItemDetails: {
     Data: [
-      { Value: product   },
-      { Value: quantity  },
-      { Value: unitPrice },
-      { Value: lineTotal }
+      { Value: product,   Label: '{i18n>product}'    },
+      { Value: quantity,  Label: '{i18n>quantity}'    },
+      { Value: unitPrice, Label: '{i18n>unitPrice}'   },
+      { Value: lineTotal, Label: '{i18n>lineTotal}'   }
     ]
   },
   UI.Facets: [
     {
       $Type:  'UI.ReferenceFacet',
-      Label:  'Item Details',
+      Label:  '{i18n>ItemDetails}',
       Target: '@UI.FieldGroup#ItemDetails'
     }
   ]
